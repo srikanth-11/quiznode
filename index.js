@@ -51,7 +51,7 @@ app.post("/question/:question_id", (req, res) => {
       req.body.id = 1;
     }
     req.body.id = questions[question].options.length + 1;
-    console.log(req.body.id);
+    
     questions[question].options.push(req.body);
     res.json({
       message: "option created",
@@ -60,7 +60,7 @@ app.post("/question/:question_id", (req, res) => {
 });
 
 app.get("/question/:question_id/:option_id", (req, res) => {
-  console.log(req.params.question_id, req.params.option_id);
+  
 
   const questionIndex = questions.findIndex(
     (q) => q.id == req.params.question_id
@@ -73,15 +73,10 @@ app.get("/question/:question_id/:option_id", (req, res) => {
       const optionIndex = questions[questionIndex].options.findIndex(
         (option) => option.id == req.params.option_id
       );
-      console.log(optionIndex);
+      
       if (optionIndex === -1) {
         res.status(400).json({ message: "Option not found" });
       } else {
-        console.log(
-          "option value",
-          questions[questionIndex].options[optionIndex]
-        );
-        console.log(questions[questionIndex].options[optionIndex].iscorrect);
         if (questions[questionIndex].options[optionIndex].iscorrect) {
           res.json({ option: "Correct" });
         } else {
